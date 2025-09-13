@@ -2,7 +2,7 @@
 import { CreatePropertyRequest, PropertiesResponse, Property, PropertyFilters } from "@/types/property";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../index";
-import { ApiResponse } from "./auth-api";
+import { ApiResponse } from "@/types/auth";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
@@ -67,9 +67,48 @@ export const propertiesApi = createApi({
             invalidatesTags: ["Property", "HostProperties"],
         }),
 
-        getHostProperties: builder.query<ApiResponse<{ properties: Property[] }>, void>({
-            query: () => "/properties/host",
+        getHostProperties: builder.query<ApiResponse<{ properties: Property[]; pagination: any }>, {
+            page?: number;
+            limit?: number;
+            status?: string;
+            search?: string;
+        }>({
+            query: (params) => ({
+                url: "/properties/host",
+                params,
+            }),
             providesTags: ["HostProperties"],
+        }),
+
+        getHostDashboard: builder.query<ApiResponse<{
+            totalProperties: number;
+            totalBookings: number;
+            totalRevenue: number;
+            averageRating: number;
+            occupancyRate: number;
+            monthlyRevenue: any[];
+        }>, void>({
+            query: () => "/properties/host/dashboard",
+        }),
+
+        getHostAnalytics: builder.query<ApiResponse<{
+            overview: {
+                totalRevenue: number;
+                totalBookings: number;
+                averageRating: number;
+                occupancyRate: number;
+                viewsToBookingRate: number;
+            };
+            monthlyRevenue: any[];
+            propertyPerformance: any[];
+            bookingTrends: any[];
+            guestInsights: {
+                averageStayDuration: number;
+                repeatGuestRate: number;
+                averageGroupSize: number;
+            };
+        }>, void>({
+            query: () => "/properties/host/analytics",
         }),
     }),
 });
@@ -81,4 +120,6 @@ export const {
     useUpdatePropertyMutation,
     useDeletePropertyMutation,
     useGetHostPropertiesQuery,
+    useGetHostDashboardQuery,
+    useGetHostAnalyticsQuery,
 } = propertiesApi;

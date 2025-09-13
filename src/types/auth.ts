@@ -1,22 +1,60 @@
 export interface User {
     id: string;
     email: string;
+    firstName: string;
+    lastName: string;
     name: string;
     avatar: string;
     role: "renter" | "host";
     phone?: string;
     bio?: string;
+    location?: string;
+    dateOfBirth?: string;
     isVerified: boolean;
     createdAt: string;
     updatedAt: string;
 }
 
-export interface Location {
-    address: string;
-    city: string;
-    country: string;
-    coordinates?: {
-        lat: number;
-        lng: number;
-    };
+export interface AuthResponse {
+    user: User;
+    token: string;
+}
+
+export interface GoogleAuthRequest {
+    googleId: string;
+    email: string;
+    name: string;
+    avatar: string;
+    role: "renter" | "host";
+}
+
+export interface LoginRequest {
+    email: string;
+    password: string;
+    role: "renter" | "host";
+}
+
+export interface RegisterRequest {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    role: "renter" | "host";
+}
+
+export interface ForgotPasswordRequest {
+    email: string;
+}
+
+export interface ResetPasswordRequest {
+    token: string;
+    password: string;
+}
+
+export interface ApiResponse<T = unknown> {
+    success: boolean;
+    message: string;
+    data?: T;
+    error?: string;
+    errors?: unknown[];
 }

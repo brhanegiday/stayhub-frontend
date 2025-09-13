@@ -1,22 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ApiResponse } from "@/types/auth";
 import { Booking, BookingFilters, BookingsResponse, CreateBookingRequest } from "@/types/booking";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { RootState } from "../index";
-import { ApiResponse } from "./auth-api";
-
-const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
-    prepareHeaders: (headers, { getState }) => {
-        const token = (getState() as RootState).auth.token;
-        if (token) {
-            headers.set("authorization", `Bearer ${token}`);
-        }
-        return headers;
-    },
-});
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery from "../baseQuery";
+    
 
 export const bookingsApi = createApi({
     reducerPath: "bookingsApi",
-    baseQuery,
+    baseQuery:baseQuery,
     tagTypes: ["Booking"],
     endpoints: (builder) => ({
         getUserBookings: builder.query<ApiResponse<BookingsResponse>, BookingFilters>({
@@ -58,16 +49,60 @@ export const bookingsApi = createApi({
             invalidatesTags: (result, error, { id }) => [{ type: "Booking", id }, "Booking"],
         }),
 
-        cancelBooking: builder.mutation<ApiResponse<{ booking: Booking }>, { id: string; cancellationReason?: string }>(
-            {
-                query: ({ id, cancellationReason }) => ({
-                    url: `/bookings/${id}/cancel`,
-                    method: "PUT",
-                    body: { cancellationReason },
-                }),
-                invalidatesTags: (result, error, { id }) => [{ type: "Booking", id }, "Booking"],
-            }
-        ),
+        cancelBooking: builder.mutation<ApiResponse<{ booking: Booking }>, string>({
+            query: (id) => ({
+                url: `/bookings/${id}/cancel`,
+                method: "PUT",
+            }),
+            invalidatesTags: (result, error, id) => [{ type: "Booking", id }, "Booking"],
+        }),
+
+        updateBooking: builder.mutation<ApiResponse<{ booking: Booking }>, { id: string; status: string }>({
+            query: ({ id, status }) => ({
+                url: `/bookings/${id}`,
+                method: "PUT",
+                body: { status },
+            }),
+            invalidatesTags: (result, error, { id }) => [{ type: "Booking", id }, "Booking"],
+        }),
+
+        // Host specific endpoints
+        getHostBookings: builder.query<ApiResponse<{ bookings: Booking[]; pagination: any }>, {
+            page?: number;
+            limit?: number;
+            status?: string;
+            search?: string;
+        }>({
+            query: (params) => ({
+                url: "/bookings/host",
+                params,
+            }),
+            providesTags: ["Booking"],
+        }),
+
+        // Renter specific endpoints
+        getRenterBookings: builder.query<ApiResponse<{ bookings: Booking[]; pagination: any }>, {
+            page?: number;
+            limit?: number;
+            status?: string;
+            search?: string;
+        }>({
+            query: (params) => ({
+                url: "/bookings/renter",
+                params,
+            }),
+            providesTags: ["Booking"],
+        }),
+
+        getRenterDashboard: builder.query<ApiResponse<{
+            totalBookings: number;
+            upcomingBookings: number;
+            completedBookings: number;
+            totalSpent: number;
+            favoriteProperties: number;
+        }>, void>({
+            query: () => "/bookings/renter/dashboard",
+        }),
     }),
 });
 
@@ -77,4 +112,8 @@ export const {
     useCreateBookingMutation,
     useUpdateBookingStatusMutation,
     useCancelBookingMutation,
+    useUpdateBookingMutation,
+    useGetHostBookingsQuery,
+    useGetRenterBookingsQuery,
+    useGetRenterDashboardQuery,
 } = bookingsApi;

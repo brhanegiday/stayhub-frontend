@@ -1,57 +1,47 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { RootState } from "../index";
-
-export interface User {
-    id: string;
-    email: string;
-    name: string;
-    avatar: string;
-    role: "renter" | "host";
-    phone?: string;
-    bio?: string;
-    isVerified: boolean;
-    createdAt: string;
-    updatedAt: string;
-}
-
-export interface AuthResponse {
-    user: User;
-    token: string;
-}
-
-export interface GoogleAuthRequest {
-    googleId: string;
-    email: string;
-    name: string;
-    avatar: string;
-    role: "renter" | "host";
-}
-
-export interface ApiResponse<T = any> {
-    success: boolean;
-    message: string;
-    data?: T;
-    error?: string;
-    errors?: any[];
-}
-
-const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
-    prepareHeaders: (headers, { getState }) => {
-        const token = (getState() as RootState).auth.token;
-        if (token) {
-            headers.set("authorization", `Bearer ${token}`);
-        }
-        return headers;
-    },
-});
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery from "../baseQuery";
+import { ApiResponse, AuthResponse, ForgotPasswordRequest, GoogleAuthRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, User } from "@/types/auth";
 
 export const authApi = createApi({
     reducerPath: "authApi",
-    baseQuery,
+    baseQuery: baseQuery,
     tagTypes: ["User"],
     endpoints: (builder) => ({
+        login: builder.mutation<ApiResponse<AuthResponse>, LoginRequest>({
+            query: (credentials) => ({
+                url: "/auth/login",
+                method: "POST",
+                body: credentials,
+            }),
+            invalidatesTags: ["User"],
+        }),
+
+        register: builder.mutation<ApiResponse<AuthResponse>, RegisterRequest>({
+            query: (userData) => ({
+                url: "/auth/register",
+                method: "POST",
+                body: userData,
+            }),
+            invalidatesTags: ["User"],
+        }),
+
+        forgotPassword: builder.mutation<ApiResponse, ForgotPasswordRequest>({
+            query: (data) => ({
+                url: "/auth/forgot-password",
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+        resetPassword: builder.mutation<ApiResponse, ResetPasswordRequest>({
+            query: (data) => ({
+                url: "/auth/reset-password",
+                method: "POST",
+                body: data,
+            }),
+        }),
+
         googleAuth: builder.mutation<ApiResponse<AuthResponse>, GoogleAuthRequest>({
             query: (credentials) => ({
                 url: "/auth/google",
@@ -85,4 +75,13 @@ export const authApi = createApi({
     }),
 });
 
-export const { useGoogleAuthMutation, useGetMeQuery, useUpdateProfileMutation, useLogoutMutation } = authApi;
+export const {
+    useLoginMutation,
+    useRegisterMutation,
+    useForgotPasswordMutation,
+    useResetPasswordMutation,
+    useGoogleAuthMutation,
+    useGetMeQuery,
+    useUpdateProfileMutation,
+    useLogoutMutation,
+} = authApi;

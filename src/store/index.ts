@@ -3,7 +3,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi } from "./api/auth-api";
 import { propertiesApi } from "./api/properties-api";
 import { bookingsApi } from "./api/bookings-api";
-// import { usersApi } from "./api/users-api";
+import { usersApi } from "./api/users-api";
 import authSlice from "./slices/auth-slice";
 import uiSlice from "./slices/ui-slice";
 import preferencesSlice from "./slices/preferences-slice";
@@ -14,7 +14,7 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [propertiesApi.reducerPath]: propertiesApi.reducer,
         [bookingsApi.reducerPath]: bookingsApi.reducer,
-        // [usersApi.reducerPath]: usersApi.reducer,
+        [usersApi.reducerPath]: usersApi.reducer,
 
         // Regular slices
         auth: authSlice,
@@ -32,7 +32,7 @@ export const store = configureStore({
                     "persist/REGISTER",
                 ],
             },
-        }).concat(authApi.middleware, propertiesApi.middleware, bookingsApi.middleware),
+        }).concat(authApi.middleware, propertiesApi.middleware, bookingsApi.middleware, usersApi.middleware),
     devTools: process.env.NODE_ENV !== "production",
 });
 
