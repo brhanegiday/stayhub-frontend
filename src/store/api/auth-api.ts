@@ -1,7 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "../baseQuery";
-import { ApiResponse, AuthResponse, ForgotPasswordRequest, GoogleAuthRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, User } from "@/types/auth";
+import {
+    ApiResponse,
+    AuthResponse,
+    ForgotPasswordRequest,
+    GoogleAuthRequest,
+    LoginRequest,
+    RegisterRequest,
+    ResetPasswordRequest,
+    User,
+} from "@/types/auth";
 
 export const authApi = createApi({
     reducerPath: "authApi",

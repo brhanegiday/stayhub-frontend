@@ -43,131 +43,121 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.21 0.006 285.885);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.705 0.015 286.067);
-}
-
-.dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.92 0.004 286.32);
-  --primary-foreground: oklch(0.21 0.006 285.885);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.938);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.552 0.016 285.938);
-} */
-
-
-/* Design System - colors.css */
 :root {
-  /* Primary Brand Colors */
-  --primary: 220 65% 47%;           /* Professional Blue #2563eb */
-  --primary-foreground: 0 0% 98%;   /* Almost White */
+  --radius: 0.625rem;
+  /* Light Theme - Professional Property Booking Colors */
+  --background: oklch(0.99 0.002 220); /* Soft white with subtle blue undertone */
+  --foreground: oklch(0.15 0.008 240); /* Deep navy for text */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.15 0.008 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.008 240);
+  --primary: oklch(0.55 0.15 220); /* Professional blue - trustworthy */
+  --primary-foreground: oklch(0.98 0.002 220);
+  --secondary: oklch(0.45 0.08 25); /* Warm terracotta - hospitality feel */
+  --secondary-foreground: oklch(0.98 0.002 220);
+  --muted: oklch(0.96 0.005 240); /* Light blue-gray */
+  --muted-foreground: oklch(0.45 0.01 240);
+  --accent: oklch(0.65 0.12 160); /* Fresh mint green - for highlights */
+  --accent-foreground: oklch(0.15 0.008 240);
+  --destructive: oklch(0.58 0.18 15); /* Warm red for errors */
+  --destructive-foreground: oklch(0.98 0.002 220);
+  --border: oklch(0.92 0.008 240);
+  --input: oklch(0.94 0.005 240);
+  --ring: oklch(0.55 0.15 220);
   
-  /* Secondary Colors */
-  --secondary: 220 20% 90%;         /* Light Blue Gray */
-  --secondary-foreground: 220 65% 47%;
+  /* Chart colors for analytics/ratings */
+  --chart-1: oklch(0.55 0.15 220); /* Primary blue */
+  --chart-2: oklch(0.45 0.08 25); /* Terracotta */
+  --chart-3: oklch(0.65 0.12 160); /* Mint green */
+  --chart-4: oklch(0.62 0.14 280); /* Purple for premium */
+  --chart-5: oklch(0.58 0.12 50); /* Golden yellow for ratings */
   
-  /* Success & Status Colors */
-  --success: 140 81% 31%;           /* Green #059669 */
-  --success-foreground: 0 0% 98%;
-  --warning: 38 92% 50%;            /* Amber #f59e0b */
-  --warning-foreground: 0 0% 98%;
-  --destructive: 0 84% 60%;         /* Red #ef4444 */
-  --destructive-foreground: 0 0% 98%;
-  
-  /* Neutral Colors */
-  --background: 0 0% 100%;          /* White */
-  --foreground: 220 13% 10%;        /* Dark Gray */
-  --card: 0 0% 100%;
-  --card-foreground: 220 13% 10%;
-  --muted: 220 13% 95%;             /* Very Light Gray */
-  --muted-foreground: 220 9% 46%;   /* Medium Gray */
-  --border: 220 13% 91%;            /* Light Border */
-  --input: 220 13% 91%;
-  --ring: 220 65% 47%;              /* Focus Ring */
-  
-  /* Semantic Colors for Booking Status */
-  --status-pending: 38 92% 50%;     /* Amber */
-  --status-confirmed: 140 81% 31%;  /* Green */
-  --status-cancelled: 0 84% 60%;    /* Red */
-  --status-completed: 220 13% 46%;  /* Gray */
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  
-  /* Radius */
-  --radius: 0.75rem;
+  /* Sidebar specific colors */
+  --sidebar: oklch(0.98 0.002 220);
+  --sidebar-foreground: oklch(0.15 0.008 240);
+  --sidebar-primary: oklch(0.55 0.15 220);
+  --sidebar-primary-foreground: oklch(0.98 0.002 220);
+  --sidebar-accent: oklch(0.96 0.005 240);
+  --sidebar-accent-foreground: oklch(0.15 0.008 240);
+  --sidebar-border: oklch(0.92 0.008 240);
+  --sidebar-ring: oklch(0.55 0.15 220);
 }
 
 .dark {
-  --background: 220 13% 9%;
-  --foreground: 0 0% 95%;
-  --card: 220 13% 11%;
-  --card-foreground: 0 0% 95%;
-  --muted: 220 13% 15%;
-  --muted-foreground: 220 9% 60%;
-  --border: 220 13% 20%;
-  --input: 220 13% 20%;
-
+  /* Dark Theme - Sophisticated and Modern */
+  --background: oklch(0.08 0.005 240); /* Deep dark blue-black */
+  --foreground: oklch(0.95 0.002 220); /* Soft white text */
+  --card: oklch(0.12 0.008 240); /* Slightly lighter cards */
+  --card-foreground: oklch(0.95 0.002 220);
+  --popover: oklch(0.12 0.008 240);
+  --popover-foreground: oklch(0.95 0.002 220);
+  --primary: oklch(0.65 0.16 210); /* Brighter blue for dark mode */
+  --primary-foreground: oklch(0.08 0.005 240);
+  --secondary: oklch(0.55 0.1 25); /* Warmer terracotta */
+  --secondary-foreground: oklch(0.95 0.002 220);
+  --muted: oklch(0.18 0.008 240); /* Dark blue-gray */
+  --muted-foreground: oklch(0.65 0.008 240);
+  --accent: oklch(0.7 0.14 160); /* Brighter mint for dark mode */
+  --accent-foreground: oklch(0.08 0.005 240);
+  --destructive: oklch(0.65 0.2 15); /* Brighter warm red */
+  --destructive-foreground: oklch(0.95 0.002 220);
+  --border: oklch(0.2 0.01 240);
+  --input: oklch(0.16 0.008 240);
+  --ring: oklch(0.65 0.16 210);
+  
+  /* Dark mode chart colors */
+  --chart-1: oklch(0.65 0.16 210); /* Brighter primary blue */
+  --chart-2: oklch(0.55 0.1 25); /* Warm terracotta */
+  --chart-3: oklch(0.7 0.14 160); /* Bright mint */
+  --chart-4: oklch(0.68 0.16 280); /* Bright purple */
+  --chart-5: oklch(0.7 0.15 50); /* Golden yellow */
+  
+  /* Dark sidebar colors */
+  --sidebar: oklch(0.1 0.006 240);
+  --sidebar-foreground: oklch(0.95 0.002 220);
+  --sidebar-primary: oklch(0.65 0.16 210);
+  --sidebar-primary-foreground: oklch(0.08 0.005 240);
+  --sidebar-accent: oklch(0.18 0.008 240);
+  --sidebar-accent-foreground: oklch(0.95 0.002 220);
+  --sidebar-border: oklch(0.2 0.01 240);
+  --sidebar-ring: oklch(0.65 0.16 210);
 }
+
+/* Additional utility classes for property booking specific elements */
+.booking-success {
+  background: oklch(0.92 0.08 160);
+  color: oklch(0.2 0.1 160);
+}
+
+.dark .booking-success {
+  background: oklch(0.2 0.1 160);
+  color: oklch(0.85 0.12 160);
+}
+
+.price-highlight {
+  color: oklch(0.45 0.08 25);
+  font-weight: 600;
+}
+
+.dark .price-highlight {
+  color: oklch(0.7 0.15 50);
+}
+
+.rating-star {
+  color: oklch(0.7 0.15 50);
+}
+
+.availability-indicator {
+  background: oklch(0.7 0.14 160);
+}
+
+.dark .availability-indicator {
+  background: oklch(0.7 0.14 160);
+}
+
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -5,19 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { RootState } from "@/store";
 import { clearCredentials } from "@/store/slices/auth-slice";
-import {
-    BarChart3,
-    Building2,
-    Calendar,
-    Heart,
-    Home,
-    LogOut,
-    Menu,
-    Settings,
-    Star,
-    User,
-    X
-} from "lucide-react";
+import { BarChart3, Building2, Calendar, Heart, Home, LogOut, Menu, Settings, Star, User, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -94,12 +82,7 @@ export function Sidebar({ userRole }: SidebarProps) {
                     </div>
                     <span className="text-xl font-bold">StayHub</span>
                 </Link>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsOpen(false)}
-                    className="lg:hidden"
-                >
+                <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} className="lg:hidden">
                     <X className="h-5 w-5" />
                 </Button>
             </div>
@@ -110,16 +93,15 @@ export function Sidebar({ userRole }: SidebarProps) {
                     <Avatar>
                         <AvatarImage src={user?.avatar} alt={user?.name} />
                         <AvatarFallback>
-                            {user?.firstName?.[0]}{user?.lastName?.[0]}
+                            {user?.firstName?.[0]}
+                            {user?.lastName?.[0]}
                         </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">
                             {user?.firstName} {user?.lastName}
                         </p>
-                        <p className="text-xs text-muted-foreground capitalize">
-                            {user?.role}
-                        </p>
+                        <p className="text-xs text-muted-foreground capitalize">{user?.role}</p>
                     </div>
                 </div>
             </div>
@@ -133,11 +115,7 @@ export function Sidebar({ userRole }: SidebarProps) {
 
                         return (
                             <li key={item.href}>
-                                <Button
-                                    asChild
-                                    variant={active ? "default" : "ghost"}
-                                    className="w-full justify-start"
-                                >
+                                <Button asChild variant={active ? "default" : "ghost"} className="w-full justify-start">
                                     <Link href={item.href}>
                                         <Icon className="mr-3 h-4 w-4" />
                                         {item.title}
@@ -153,11 +131,7 @@ export function Sidebar({ userRole }: SidebarProps) {
                 {/* Additional Actions */}
                 <ul className="space-y-2">
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className="w-full justify-start"
-                        >
+                        <Button asChild variant="ghost" className="w-full justify-start">
                             <Link href="/profile">
                                 <User className="mr-3 h-4 w-4" />
                                 Profile
@@ -165,11 +139,7 @@ export function Sidebar({ userRole }: SidebarProps) {
                         </Button>
                     </li>
                     <li>
-                        <Button
-                            asChild
-                            variant="ghost"
-                            className="w-full justify-start"
-                        >
+                        <Button asChild variant="ghost" className="w-full justify-start">
                             <Link href="/">
                                 <Star className="mr-3 h-4 w-4" />
                                 Browse Properties
@@ -177,10 +147,7 @@ export function Sidebar({ userRole }: SidebarProps) {
                         </Button>
                     </li>
                     <li>
-                        <Button
-                            variant="ghost"
-                            className="w-full justify-start"
-                        >
+                        <Button variant="ghost" className="w-full justify-start">
                             <Settings className="mr-3 h-4 w-4" />
                             Settings
                         </Button>
@@ -215,12 +182,7 @@ export function Sidebar({ userRole }: SidebarProps) {
             </Button>
 
             {/* Mobile Overlay */}
-            {isOpen && (
-                <div
-                    className="lg:hidden fixed inset-0 z-40 bg-black/50"
-                    onClick={() => setIsOpen(false)}
-                />
-            )}
+            {isOpen && <div className="lg:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setIsOpen(false)} />}
 
             {/* Sidebar */}
             <aside

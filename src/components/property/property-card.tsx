@@ -56,7 +56,7 @@ export function PropertyCard({ property, variant = "default" }: PropertyCardProp
     const cardClasses =
         variant === "compact"
             ? "group cursor-pointer hover:shadow-lg transition-all duration-300"
-            : "group cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1";
+            : "group cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-0";
 
     return (
         <Card className={cardClasses}>
