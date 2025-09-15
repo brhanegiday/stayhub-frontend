@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../baseQuery";
 import {
     ApiResponse,
     AuthResponse,
@@ -11,6 +9,8 @@ import {
     ResetPasswordRequest,
     User,
 } from "@/types/auth";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery from "../baseQuery";
 
 export const authApi = createApi({
     reducerPath: "authApi",
@@ -45,9 +45,9 @@ export const authApi = createApi({
 
         resetPassword: builder.mutation<ApiResponse, ResetPasswordRequest>({
             query: (data) => ({
-                url: "/auth/reset-password",
+                url: `/auth/reset-password/${data.token}`,
                 method: "POST",
-                body: data,
+                body: { password: data.password },
             }),
         }),
 
@@ -74,6 +74,37 @@ export const authApi = createApi({
             invalidatesTags: ["User"],
         }),
 
+        verifyEmail: builder.mutation<ApiResponse, { token: string }>({
+            query: ({ token }) => ({
+                url: `/auth/verify-email?token=${token}`,
+                method: "GET",
+            }),
+            invalidatesTags: ["User"],
+        }),
+
+        resendVerification: builder.mutation<ApiResponse, { email: string }>({
+            query: (data) => ({
+                url: "/auth/resend-verification",
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+        changePassword: builder.mutation<ApiResponse, { currentPassword: string; newPassword: string }>({
+            query: (data) => ({
+                url: "/auth/change-password",
+                method: "POST",
+                body: data,
+            }),
+        }),
+
+        refreshToken: builder.mutation<ApiResponse<{ token: string }>, void>({
+            query: () => ({
+                url: "/auth/refresh-token",
+                method: "POST",
+            }),
+        }),
+
         logout: builder.mutation<ApiResponse, void>({
             query: () => ({
                 url: "/auth/logout",
@@ -89,6 +120,10 @@ export const {
     useRegisterMutation,
     useForgotPasswordMutation,
     useResetPasswordMutation,
+    useVerifyEmailMutation,
+    useResendVerificationMutation,
+    useChangePasswordMutation,
+    useRefreshTokenMutation,
     useGoogleAuthMutation,
     useGetMeQuery,
     useUpdateProfileMutation,

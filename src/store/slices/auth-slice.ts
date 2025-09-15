@@ -81,4 +81,8 @@ const authSlice = createSlice({
 });
 
 export const { setCredentials, updateUser, clearCredentials, initializeAuth } = authSlice.actions;
+
+// Alias for clearCredentials to match expected import name
+export const logout = clearCredentials;
+
 export default authSlice.reducer;

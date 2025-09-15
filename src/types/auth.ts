@@ -35,8 +35,7 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-    firstName: string;
-    lastName: string;
+    name: string;
     email: string;
     password: string;
     role: "renter" | "host";

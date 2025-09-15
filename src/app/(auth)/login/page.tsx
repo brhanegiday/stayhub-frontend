@@ -1,8 +1,7 @@
 "use client";
 
-import { RoleSelection } from "@/components/auth/role-selection";
+import { LoginForm } from "@/components/auth/login-form";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { RootState } from "@/store";
 import { ArrowLeft, Home } from "lucide-react";
 import Link from "next/link";
@@ -39,11 +38,7 @@ export default function LoginPage() {
                     </Link>
                 </div>
 
-                <Card className="shadow-xl">
-                    <CardContent className="p-8">
-                        <RoleSelection />
-                    </CardContent>
-                </Card>
+                <LoginForm />
 
                 <div className="text-center mt-6">
                     <Button variant="ghost" asChild>

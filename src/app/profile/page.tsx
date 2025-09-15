@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import { ChangePasswordForm } from "@/components/auth/change-password-form";
 import { RootState } from "@/store";
 import { useUpdateUserMutation } from "@/store/api/users-api";
 import { updateUser } from "@/store/slices/auth-slice";
@@ -345,14 +346,11 @@ export default function ProfilePage() {
                                         <h4 className="text-sm font-medium">Account Settings</h4>
                                         <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
                                             <div>
-                                                <p className="font-medium">Change Password</p>
+                                                <p className="font-medium">Password</p>
                                                 <p className="text-sm text-muted-foreground">
-                                                    Update your password to keep your account secure
+                                                    Your password settings are managed below
                                                 </p>
                                             </div>
-                                            <Button variant="outline" size="sm">
-                                                Change Password
-                                            </Button>
                                         </div>
 
                                         <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
@@ -370,6 +368,9 @@ export default function ProfilePage() {
                                 </form>
                             </CardContent>
                         </Card>
+
+                        {/* Password Change Section */}
+                        <ChangePasswordForm />
                     </div>
                 </div>
             </main>

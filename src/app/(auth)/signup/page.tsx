@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -15,17 +16,18 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const signupSchema = z.object({
-    firstName: z.string().min(2, "First name must be at least 2 characters"),
-    lastName: z.string().min(2, "Last name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string(),
-    role: z.enum(["host", "renter"]),
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-});
+const signupSchema = z
+    .object({
+        name: z.string().min(2, "Name must be at least 2 characters"),
+        email: z.email("Please enter a valid email address"),
+        password: z.string().min(8, "Password must be at least 8 characters"),
+        confirmPassword: z.string(),
+        role: z.enum(["host", "renter"]),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords don't match",
+        path: ["confirmPassword"],
+    });
 
 type SignupFormData = z.infer<typeof signupSchema>;
 
@@ -49,10 +51,12 @@ export default function SignupPage() {
 
     const onSubmit = async (data: SignupFormData) => {
         try {
+            // Remove confirmPassword and send firstName/lastName as expected by RTK Query
             const { confirmPassword, ...registerData } = data;
+
             await register(registerData).unwrap();
             toast.success("Account created successfully! Please check your email to verify your account.");
-            router.push("/login");
+            router.push("/verify-email");
         } catch (error: any) {
             toast.error(error?.data?.message || "Failed to create account");
         }
@@ -80,33 +84,16 @@ export default function SignupPage() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="firstName">First Name</Label>
-                                    <Input
-                                        id="firstName"
-                                        type="text"
-                                        placeholder="John"
-                                        {...formRegister("firstName")}
-                                        className={errors.firstName ? "border-destructive" : ""}
-                                    />
-                                    {errors.firstName && (
-                                        <p className="text-sm text-destructive">{errors.firstName.message}</p>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="lastName">Last Name</Label>
-                                    <Input
-                                        id="lastName"
-                                        type="text"
-                                        placeholder="Doe"
-                                        {...formRegister("lastName")}
-                                        className={errors.lastName ? "border-destructive" : ""}
-                                    />
-                                    {errors.lastName && (
-                                        <p className="text-sm text-destructive">{errors.lastName.message}</p>
-                                    )}
-                                </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="name">Full Name</Label>
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    placeholder="John Lock"
+                                    {...formRegister("name")}
+                                    className={errors.name ? "border-destructive" : ""}
+                                />
+                                {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -145,7 +132,9 @@ export default function SignupPage() {
                                         )}
                                     </Button>
                                 </div>
-                                {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+                                {errors.password && (
+                                    <p className="text-sm text-destructive">{errors.password.message}</p>
+                                )}
                             </div>
 
                             <div className="space-y-2">

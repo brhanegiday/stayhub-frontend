@@ -7,6 +7,7 @@ import { usersApi } from "./api/users-api";
 import authSlice from "./slices/auth-slice";
 import uiSlice from "./slices/ui-slice";
 import preferencesSlice from "./slices/preferences-slice";
+import { authMiddleware } from "./middleware/auth-middleware";
 
 export const store = configureStore({
     reducer: {
@@ -32,7 +33,7 @@ export const store = configureStore({
                     "persist/REGISTER",
                 ],
             },
-        }).concat(authApi.middleware, propertiesApi.middleware, bookingsApi.middleware, usersApi.middleware),
+        }).concat(authApi.middleware, propertiesApi.middleware, bookingsApi.middleware, usersApi.middleware, authMiddleware.middleware),
     devTools: process.env.NODE_ENV !== "production",
 });
 
