@@ -17,7 +17,7 @@ function VerifyEmailContent() {
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
 
-    const [verifyEmail, { isLoading: isVerifying }] = useVerifyEmailMutation();
+    const [verifyEmail] = useVerifyEmailMutation();
     const [resendVerification, { isLoading: isResending }] = useResendVerificationMutation();
 
     const [verificationStatus, setVerificationStatus] = useState<"idle" | "success" | "error">("idle");
@@ -74,9 +74,7 @@ function VerifyEmailContent() {
                             </div>
                         </div>
                         <CardTitle>Verifying Your Email</CardTitle>
-                        <CardDescription>
-                            Please wait while we verify your email address...
-                        </CardDescription>
+                        <CardDescription>Please wait while we verify your email address...</CardDescription>
                     </CardHeader>
                 </Card>
             </div>
@@ -129,8 +127,7 @@ function VerifyEmailContent() {
                         <CardDescription>
                             {verificationStatus === "error"
                                 ? "The verification link is invalid or has expired. You can request a new one below."
-                                : "Enter your email address to receive a new verification link."
-                            }
+                                : "Enter your email address to receive a new verification link."}
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -146,11 +143,7 @@ function VerifyEmailContent() {
                             />
                         </div>
 
-                        <Button
-                            onClick={handleResendVerification}
-                            disabled={isResending || !email}
-                            className="w-full"
-                        >
+                        <Button onClick={handleResendVerification} disabled={isResending || !email} className="w-full">
                             {isResending ? (
                                 <>
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -189,20 +182,22 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
     return (
-        <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center bg-background">
-                <Card className="w-full max-w-md">
-                    <CardHeader className="text-center">
-                        <div className="flex justify-center mb-4">
-                            <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
-                                <Loader2 className="w-8 h-8 text-blue-600 dark:text-blue-400 animate-spin" />
+        <Suspense
+            fallback={
+                <div className="min-h-screen flex items-center justify-center bg-background">
+                    <Card className="w-full max-w-md">
+                        <CardHeader className="text-center">
+                            <div className="flex justify-center mb-4">
+                                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
+                                    <Loader2 className="w-8 h-8 text-blue-600 dark:text-blue-400 animate-spin" />
+                                </div>
                             </div>
-                        </div>
-                        <CardTitle>Loading...</CardTitle>
-                    </CardHeader>
-                </Card>
-            </div>
-        }>
+                            <CardTitle>Loading...</CardTitle>
+                        </CardHeader>
+                    </Card>
+                </div>
+            }
+        >
             <VerifyEmailContent />
         </Suspense>
     );

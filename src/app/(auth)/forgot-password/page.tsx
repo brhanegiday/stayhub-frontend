@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -67,7 +69,7 @@ export default function ForgotPasswordPage() {
                                 <div>
                                     <h2 className="text-2xl font-bold text-foreground mb-2">Email Sent!</h2>
                                     <p className="text-muted-foreground">
-                                        We've sent password reset instructions to{" "}
+                                        We&apos;ve sent password reset instructions to{" "}
                                         <span className="font-medium text-foreground">{getValues("email")}</span>
                                     </p>
                                 </div>

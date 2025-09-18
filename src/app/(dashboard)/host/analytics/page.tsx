@@ -4,10 +4,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetHostAnalyticsQuery } from "@/store/api/properties-api";
-import { BarChart3, Calendar, DollarSign, Eye, MapPin, Star, TrendingDown, TrendingUp, Users } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { BarChart3, Calendar, DollarSign, MapPin, Star, TrendingDown, TrendingUp, Users } from "lucide-react";
 
 export default function HostAnalyticsPage() {
     const { data, isLoading } = useGetHostAnalyticsQuery();
