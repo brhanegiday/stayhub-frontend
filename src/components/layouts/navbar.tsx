@@ -33,7 +33,7 @@ export function Navbar() {
             await logout().unwrap();
             dispatch(clearCredentials());
             router.push("/");
-        } catch (error) {
+        } catch {
             // Handle error silently or show notification
             dispatch(clearCredentials());
             router.push("/");

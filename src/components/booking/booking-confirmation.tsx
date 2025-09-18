@@ -1,26 +1,26 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { format } from "date-fns";
 import {
+    AlertCircle,
     Calendar,
-    MapPin,
-    Users,
-    Clock,
     CheckCircle,
+    Clock,
+    CreditCard,
     Download,
+    Home,
+    MapPin,
     MessageCircle,
     Phone,
-    Star,
     Shield,
-    AlertCircle,
-    CreditCard,
-    Home
+    Star,
+    Users
 } from "lucide-react";
-import { format } from "date-fns";
 import Link from "next/link";
 
 import { Booking } from "@/types/booking";

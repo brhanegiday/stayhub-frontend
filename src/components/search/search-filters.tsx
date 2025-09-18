@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -57,7 +58,7 @@ export function SearchFilters({ filters, onFiltersChange, onClose, className }: 
     const toggleAmenity = (amenity: string) => {
         const currentAmenities = filters.amenities || [];
         const newAmenities = currentAmenities.includes(amenity)
-            ? currentAmenities.filter(a => a !== amenity)
+            ? currentAmenities.filter((a) => a !== amenity)
             : [...currentAmenities, amenity];
 
         onFiltersChange({
@@ -184,7 +185,9 @@ export function SearchFilters({ filters, onFiltersChange, onClose, className }: 
                     <Label className="text-sm font-medium">Bedrooms</Label>
                     <Select
                         value={filters.bedrooms?.toString() || ""}
-                        onValueChange={(value) => onFiltersChange({ ...filters, bedrooms: value ? parseInt(value) : undefined })}
+                        onValueChange={(value) =>
+                            onFiltersChange({ ...filters, bedrooms: value ? parseInt(value) : undefined })
+                        }
                     >
                         <SelectTrigger>
                             <SelectValue placeholder="Any" />
@@ -209,7 +212,9 @@ export function SearchFilters({ filters, onFiltersChange, onClose, className }: 
                     </Label>
                     <Select
                         value={filters.maxGuests?.toString() || ""}
-                        onValueChange={(value) => onFiltersChange({ ...filters, maxGuests: value ? parseInt(value) : undefined })}
+                        onValueChange={(value) =>
+                            onFiltersChange({ ...filters, maxGuests: value ? parseInt(value) : undefined })
+                        }
                     >
                         <SelectTrigger>
                             <SelectValue placeholder="Any" />

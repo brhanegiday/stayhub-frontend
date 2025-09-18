@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { PropertyCard } from "@/components/property/property-card";
@@ -14,6 +15,7 @@ import {
     PaginationNext,
     PaginationPrevious
 } from "@/components/ui/pagination";
+import Image from "next/image";
 
 interface SearchResultsProps {
     properties: any[];
@@ -147,10 +149,11 @@ export function SearchResults({
                             {/* Image */}
                             <div className="w-48 h-36 flex-shrink-0">
                                 {property.images && property.images.length > 0 ? (
-                                    <img
+                                    <Image
                                         src={property.images[0]}
                                         alt={property.title}
-                                        className="w-full h-full object-cover rounded-lg"
+                                        fill
+                                        className="object-cover rounded-lg"
                                     />
                                 ) : (
                                     <div className="w-full h-full bg-muted rounded-lg flex items-center justify-center">

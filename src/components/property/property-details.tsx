@@ -1,42 +1,42 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAddToFavoritesMutation, useRemoveFromFavoritesMutation, useCheckFavoriteQuery } from "@/store/api/users-api";
 import { RootState } from "@/store";
+import { useAddToFavoritesMutation, useCheckFavoriteQuery, useRemoveFromFavoritesMutation } from "@/store/api/users-api";
 import {
-    Bed,
+    Award,
     Bath,
-    Users,
-    MapPin,
-    Star,
-    Heart,
-    Wifi,
+    Bed,
+    Calendar,
     Car,
     Coffee,
+    Dumbbell,
+    Flag,
+    Heart,
+    Loader2,
+    MapPin,
+    MessageCircle,
+    PawPrint,
+    Phone,
+    Share,
+    Shield,
+    Star,
     Tv,
-    Wind,
+    Users,
     Utensils,
     Waves,
-    Dumbbell,
-    PawPrint,
-    Loader2,
-    Share,
-    Flag,
-    Phone,
-    MessageCircle,
-    Shield,
-    Award,
-    Calendar
+    Wifi,
+    Wind
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import Image from "next/image";
 
 interface PropertyDetailsProps {
     property: {

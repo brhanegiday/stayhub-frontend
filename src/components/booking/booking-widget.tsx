@@ -44,7 +44,7 @@ interface BookingWidgetProps {
 
 export function BookingWidget({ property, bookedDates }: BookingWidgetProps) {
     const router = useRouter();
-    const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     const [createBooking, { isLoading }] = useCreateBookingMutation();
 
     const [checkIn, setCheckIn] = useState<Date>();
@@ -165,7 +165,6 @@ export function BookingWidget({ property, bookedDates }: BookingWidgetProps) {
                                     isBefore(date, new Date()) ||
                                     isDateBooked(date)
                                 }
-                                initialFocus
                             />
                         </PopoverContent>
                     </Popover>

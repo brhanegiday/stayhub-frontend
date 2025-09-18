@@ -5,11 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useGetRenterBookingsQuery, useCancelBookingMutation } from "@/store/api/bookings-api";
+import { useCancelBookingMutation, useGetRenterBookingsQuery } from "@/store/api/bookings-api";
 import { AlertCircle, Calendar, Clock, Filter, MapPin, MessageCircle, Search, Star, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -84,10 +84,11 @@ export default function RenterBookingsPage() {
                 <div className="flex space-x-4">
                     <div className="w-32 h-24 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                         {booking.propertyImage ? (
-                            <img
+                            <Image
                                 src={booking.propertyImage}
                                 alt={booking.propertyTitle}
-                                className="w-full h-full object-cover"
+                                className="object-cover rounded-lg"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                         ) : (
                             <div className="w-full h-full bg-muted flex items-center justify-center">

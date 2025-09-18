@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from ".";
 

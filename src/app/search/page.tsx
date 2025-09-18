@@ -3,7 +3,6 @@
 
 import { Footer } from "@/components/layouts/footer";
 import { Navbar } from "@/components/layouts/navbar";
-import { PropertyCard } from "@/components/property/property-card";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,11 +10,10 @@ import { Label } from "@/components/ui/label";
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
-    PaginationPrevious,
+    PaginationPrevious
 } from "@/components/ui/pagination";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";

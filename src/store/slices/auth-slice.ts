@@ -68,7 +68,7 @@ const authSlice = createSlice({
                         state.user = user;
                         state.token = token;
                         state.isAuthenticated = true;
-                    } catch (error) {
+                    } catch {
                         // Clear corrupted data
                         localStorage.removeItem("token");
                         localStorage.removeItem("user");
