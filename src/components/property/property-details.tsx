@@ -86,7 +86,7 @@ const amenityIcons: Record<string, any> = {
 };
 
 export function PropertyDetails({ property }: PropertyDetailsProps) {
-    const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [showAllAmenities, setShowAllAmenities] = useState(false);
     const [showAllImages, setShowAllImages] = useState(false);
