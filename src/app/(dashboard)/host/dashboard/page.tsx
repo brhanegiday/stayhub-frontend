@@ -70,7 +70,7 @@ export default function HostDashboard() {
                     <p className="text-muted-foreground">Welcome back! Here's how your properties are performing.</p>
                 </div>
                 <Button asChild>
-                    <Link href="/host/properties/add">
+                    <Link href="/host/properties/new">
                         <Plus className="w-4 h-4 mr-2" />
                         Add Property
                     </Link>

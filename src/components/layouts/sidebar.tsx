@@ -5,7 +5,23 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { RootState } from "@/store";
 import { clearCredentials } from "@/store/slices/auth-slice";
-import { BarChart3, Building2, Calendar, Heart, Home, LogOut, Menu, Settings, Star, User, X } from "lucide-react";
+import {
+    BarChart3,
+    Building2,
+    Calendar,
+    Heart,
+    Home,
+    LogOut,
+    Menu,
+    Settings,
+    Star,
+    User,
+    X,
+    Plus,
+    MessageSquare,
+    CreditCard,
+    Shield,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -41,6 +57,24 @@ export function Sidebar({ userRole }: SidebarProps) {
             title: "Analytics",
             href: "/host/analytics",
             icon: BarChart3,
+        },
+        {
+            title: "Messages",
+            href: "/host/messages",
+            icon: MessageSquare,
+        },
+        {
+            title: "Earnings",
+            href: "/host/earnings",
+            icon: CreditCard,
+        },
+    ];
+
+    const hostQuickActions = [
+        {
+            title: "Add Property",
+            href: "/host/properties/new",
+            icon: Plus,
         },
     ];
 
@@ -92,67 +126,127 @@ export function Sidebar({ userRole }: SidebarProps) {
                 <div className="flex items-center space-x-3">
                     <Avatar>
                         <AvatarImage src={user?.avatar} alt={user?.name} />
-                        <AvatarFallback>
-                            {user?.firstName?.[0]}
-                            {user?.lastName?.[0]}
-                        </AvatarFallback>
+                        <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">
-                            {user?.firstName} {user?.lastName}
-                        </p>
+                        <p className="text-sm font-medium truncate">{user?.name}</p>
                         <p className="text-xs text-muted-foreground capitalize">{user?.role}</p>
                     </div>
                 </div>
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 px-6 py-4">
-                <ul className="space-y-2">
-                    {navItems.map((item) => {
-                        const Icon = item.icon;
-                        const active = isActive(item.href);
+            <nav className="flex-1 px-6 py-4 overflow-y-auto">
+                {/* Quick Actions for Host */}
+                {userRole === "host" && (
+                    <>
+                        <div className="mb-6">
+                            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                                Quick Actions
+                            </h3>
+                            <ul className="space-y-2">
+                                {hostQuickActions.map((item) => {
+                                    const Icon = item.icon;
+                                    return (
+                                        <li key={item.href}>
+                                            <Button
+                                                asChild
+                                                className="w-full justify-start bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20"
+                                            >
+                                                <Link href={item.href}>
+                                                    <Icon className="mr-3 h-4 w-4" />
+                                                    <div className="text-left">
+                                                        <div className="font-medium">{item.title}</div>
+                                                    </div>
+                                                </Link>
+                                            </Button>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                        <Separator className="my-4" />
+                    </>
+                )}
 
-                        return (
-                            <li key={item.href}>
-                                <Button asChild variant={active ? "default" : "ghost"} className="w-full justify-start">
-                                    <Link href={item.href}>
-                                        <Icon className="mr-3 h-4 w-4" />
-                                        {item.title}
+                {/* Main Navigation */}
+                <div className="mb-6">
+                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                        Navigation
+                    </h3>
+                    <ul className="space-y-1">
+                        {navItems.map((item) => {
+                            const Icon = item.icon;
+                            const active = isActive(item.href);
+
+                            return (
+                                <li key={item.href}>
+                                    <Button
+                                        asChild
+                                        variant={active ? "default" : "ghost"}
+                                        className={`w-full justify-start h-auto py-3 ${
+                                            active
+                                                ? "bg-primary text-primary-foreground shadow-sm"
+                                                : "hover:bg-muted/50"
+                                        }`}
+                                    >
+                                        <Link href={item.href}>
+                                            <Icon className="mr-3 h-4 w-4 flex-shrink-0" />
+                                            <div className="text-left">
+                                                <div className="font-medium">{item.title}</div>
+                                            </div>
+                                        </Link>
+                                    </Button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+
+                <Separator className="my-4" />
+
+                {/* Additional Actions */}
+                <div>
+                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                        Account
+                    </h3>
+                    <ul className="space-y-1">
+                        <li>
+                            <Button asChild variant="ghost" className="w-full justify-start h-auto py-2">
+                                <Link href="/profile">
+                                    <User className="mr-3 h-4 w-4" />
+                                    Profile
+                                </Link>
+                            </Button>
+                        </li>
+                        {userRole === "host" && (
+                            <li>
+                                <Button asChild variant="ghost" className="w-full justify-start h-auto py-2">
+                                    <Link href="/">
+                                        <Star className="mr-3 h-4 w-4" />
+                                        Browse as Guest
                                     </Link>
                                 </Button>
                             </li>
-                        );
-                    })}
-                </ul>
-
-                <Separator className="my-6" />
-
-                {/* Additional Actions */}
-                <ul className="space-y-2">
-                    <li>
-                        <Button asChild variant="ghost" className="w-full justify-start">
-                            <Link href="/profile">
-                                <User className="mr-3 h-4 w-4" />
-                                Profile
-                            </Link>
-                        </Button>
-                    </li>
-                    <li>
-                        <Button asChild variant="ghost" className="w-full justify-start">
-                            <Link href="/">
-                                <Star className="mr-3 h-4 w-4" />
-                                Browse Properties
-                            </Link>
-                        </Button>
-                    </li>
-                    <li>
-                        <Button variant="ghost" className="w-full justify-start">
-                            <Settings className="mr-3 h-4 w-4" />
-                            Settings
-                        </Button>
-                    </li>
-                </ul>
+                        )}
+                        <li>
+                            <Button asChild variant="ghost" className="w-full justify-start h-auto py-2">
+                                <Link href="/settings">
+                                    <Settings className="mr-3 h-4 w-4" />
+                                    Settings
+                                </Link>
+                            </Button>
+                        </li>
+                        <li>
+                            <Button asChild variant="ghost" className="w-full justify-start h-auto py-2">
+                                <Link href="/help">
+                                    <Shield className="mr-3 h-4 w-4" />
+                                    Help & Support
+                                </Link>
+                            </Button>
+                        </li>
+                    </ul>
+                </div>
             </nav>
 
             {/* Logout */}

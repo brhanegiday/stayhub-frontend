@@ -9,12 +9,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import { useLoginMutation } from "@/store/api/auth-api";
+import { setCredentials } from "@/store/slices/auth-slice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, Eye, EyeOff, Loader2, Mail, User } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -28,8 +30,12 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
     const router = useRouter();
+    const dispatch = useDispatch();
+    const searchParams = useSearchParams();
     const [login, { isLoading }] = useLoginMutation();
     const [showPassword, setShowPassword] = useState(false);
+
+    const callbackUrl = searchParams.get("callbackUrl") || localStorage.getItem("intendedDestination");
 
     const {
         register,
@@ -48,11 +54,28 @@ export function LoginForm() {
 
     const onSubmit = async (data: LoginFormData) => {
         try {
-            await login(data).unwrap();
+            const response = await login(data).unwrap();
+
+            // Store credentials in Redux store
+            if (response.success && response.data) {
+                dispatch(setCredentials({
+                    user: response.data.user,
+                    token: response.data.accessToken
+                }));
+            }
+
             toast.success("Welcome back!");
 
-            // Redirect based on role
-            if (data.role === "host") {
+            // Clear stored intended destination
+            localStorage.removeItem("intendedDestination");
+
+            // Get the actual user role from the API response
+            const userRole = response.data?.user?.role || data.role;
+
+            // Redirect to intended destination or default based on actual user role
+            if (callbackUrl) {
+                router.push(callbackUrl);
+            } else if (userRole === "host") {
                 router.push("/host/dashboard");
             } else {
                 router.push("/");
@@ -219,7 +242,7 @@ export function LoginForm() {
                             </div>
                         </div>
 
-                        <GoogleAuthButton role={selectedRole} />
+                        <GoogleAuthButton role={selectedRole} callbackUrl={callbackUrl || undefined} />
 
                         <p className="text-center text-sm text-muted-foreground">
                             Don&apos;t have an account?{" "}

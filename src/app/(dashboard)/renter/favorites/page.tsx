@@ -95,7 +95,7 @@ export default function RenterFavoritesPage() {
                                 <SelectValue placeholder="All types" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="">All types</SelectItem>
+                                <SelectItem value="all">All types</SelectItem>
                                 <SelectItem value="apartment">Apartment</SelectItem>
                                 <SelectItem value="house">House</SelectItem>
                                 <SelectItem value="villa">Villa</SelectItem>

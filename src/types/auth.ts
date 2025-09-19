@@ -1,8 +1,6 @@
 export interface User {
     id: string;
     email: string;
-    firstName: string;
-    lastName: string;
     name: string;
     avatar: string;
     role: "renter" | "host";
@@ -11,13 +9,15 @@ export interface User {
     location?: string;
     dateOfBirth?: string;
     isVerified: boolean;
+    lastLogin?: string;
     createdAt: string;
     updatedAt: string;
 }
 
 export interface AuthResponse {
     user: User;
-    token: string;
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface GoogleAuthRequest {

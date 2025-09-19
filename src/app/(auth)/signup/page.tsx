@@ -51,12 +51,15 @@ export default function SignupPage() {
 
     const onSubmit = async (data: SignupFormData) => {
         try {
-            // Remove confirmPassword and send firstName/lastName as expected by RTK Query
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { confirmPassword, ...registerData } = data;
 
             await register(registerData).unwrap();
             toast.success("Account created successfully! Please check your email to verify your account.");
-            router.push("/verify-email");
+
+            // Store email and redirect to verification page with better UX
+            localStorage.setItem("pendingVerificationEmail", data.email);
+            router.push("/verify-email?signup=true");
         } catch (error: any) {
             toast.error(error?.data?.message || "Failed to create account");
         }

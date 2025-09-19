@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { VerificationSuccess } from "@/components/auth/verification-success";
 import { useResendVerificationMutation, useVerifyEmailMutation } from "@/store/api/auth-api";
 import { AlertCircle, CheckCircle, Loader2, Mail } from "lucide-react";
 import Link from "next/link";
@@ -16,18 +17,30 @@ function VerifyEmailContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
+    const isFromSignup = searchParams.get("signup") === "true";
 
     const [verifyEmail] = useVerifyEmailMutation();
     const [resendVerification, { isLoading: isResending }] = useResendVerificationMutation();
 
     const [verificationStatus, setVerificationStatus] = useState<"idle" | "success" | "error">("idle");
     const [email, setEmail] = useState("");
+    const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+
+    // Get pending verification email from localStorage
+    useEffect(() => {
+        const stored = localStorage.getItem("pendingVerificationEmail");
+        if (stored) {
+            setPendingEmail(stored);
+            setEmail(stored);
+        }
+    }, []);
 
     // Auto-verify if token is present in URL
     useEffect(() => {
         if (token) {
             handleVerification();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
     const handleVerification = async () => {
@@ -38,10 +51,13 @@ function VerifyEmailContent() {
             setVerificationStatus("success");
             toast.success("Email verified successfully!");
 
-            // Redirect to login after 3 seconds
+            // Clean up pending verification email
+            localStorage.removeItem("pendingVerificationEmail");
+
+            // Redirect to login after 5 seconds
             setTimeout(() => {
                 router.push("/login");
-            }, 3000);
+            }, 5000);
         } catch (error: any) {
             setVerificationStatus("error");
             toast.error(error?.data?.message || "Email verification failed");
@@ -102,12 +118,17 @@ function VerifyEmailContent() {
                             <Link href="/login">Sign In</Link>
                         </Button>
                         <p className="text-center text-sm text-muted-foreground">
-                            Redirecting to sign in page in 3 seconds...
+                            Redirecting to sign in page in 5 seconds...
                         </p>
                     </CardContent>
                 </Card>
             </div>
         );
+    }
+
+    // Show beautiful success state for new signups
+    if (isFromSignup && pendingEmail && !token) {
+        return <VerificationSuccess email={pendingEmail} showRedirectTimer={false} />;
     }
 
     // Verification failed or manual resend

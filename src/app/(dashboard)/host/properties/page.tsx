@@ -47,7 +47,7 @@ export default function HostPropertiesPage() {
                     <p className="text-muted-foreground">Manage and monitor your property listings</p>
                 </div>
                 <Button asChild>
-                    <Link href="/host/properties/add">
+                    <Link href="/host/properties/new">
                         <Plus className="w-4 h-4 mr-2" />
                         Add New Property
                     </Link>
@@ -83,7 +83,7 @@ export default function HostPropertiesPage() {
                                 <SelectValue placeholder="All statuses" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="">All statuses</SelectItem>
+                                <SelectItem value="all">All statuses</SelectItem>
                                 <SelectItem value="active">Active</SelectItem>
                                 <SelectItem value="inactive">Inactive</SelectItem>
                                 <SelectItem value="pending">Pending Review</SelectItem>
@@ -131,7 +131,7 @@ export default function HostPropertiesPage() {
                             </p>
                             {!filters.search && !filters.status && (
                                 <Button asChild>
-                                    <Link href="/host/properties/add">
+                                    <Link href="/host/properties/new">
                                         <Plus className="w-4 h-4 mr-2" />
                                         Add Your First Property
                                     </Link>

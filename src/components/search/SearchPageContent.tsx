@@ -195,7 +195,7 @@ export function SearchPageContent() {
                                             <SelectValue placeholder="Any type" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="">Any type</SelectItem>
+                                            <SelectItem value=" ">Any type</SelectItem>
                                             <SelectItem value="apartment">Apartment</SelectItem>
                                             <SelectItem value="house">House</SelectItem>
                                             <SelectItem value="villa">Villa</SelectItem>
@@ -220,7 +220,6 @@ export function SearchPageContent() {
                                             <SelectValue placeholder="Any" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="">Any</SelectItem>
                                             <SelectItem value="1">1 bedroom</SelectItem>
                                             <SelectItem value="2">2 bedrooms</SelectItem>
                                             <SelectItem value="3">3 bedrooms</SelectItem>
@@ -247,7 +246,6 @@ export function SearchPageContent() {
                                             <SelectValue placeholder="Any" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="">Any</SelectItem>
                                             <SelectItem value="1">1 guest</SelectItem>
                                             <SelectItem value="2">2 guests</SelectItem>
                                             <SelectItem value="4">4 guests</SelectItem>
