@@ -24,8 +24,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const profileSchema = z.object({
-    firstName: z.string().min(2, "First name must be at least 2 characters"),
-    lastName: z.string().min(2, "Last name must be at least 2 characters"),
+    name: z.string().min(3, "Name must be at least 3 characters"),
     email: z.string().email("Please enter a valid email address"),
     phone: z.string().optional(),
     bio: z.string().max(500, "Bio must be less than 500 characters").optional(),
@@ -61,8 +60,7 @@ export default function ProfilePage() {
 
         if (user) {
             reset({
-                firstName: user.firstName,
-                lastName: user.lastName,
+                name: user.name,
                 email: user.email,
                 phone: user.phone || "",
                 bio: user.bio || "",
@@ -92,8 +90,7 @@ export default function ProfilePage() {
     const handleCancel = () => {
         if (user) {
             reset({
-                firstName: user.firstName,
-                lastName: user.lastName,
+                name: user.name,
                 email: user.email,
                 phone: user.phone || "",
                 bio: user.bio || "",
@@ -138,13 +135,13 @@ export default function ProfilePage() {
                                 <div className="text-center space-y-4">
                                     <div className="relative inline-block">
                                         <Avatar className="w-24 h-24">
-                                            <AvatarImage
-                                                src={avatarPreview || user.avatar}
-                                                alt={`${user.firstName} ${user.lastName}`}
-                                            />
+                                            <AvatarImage src={avatarPreview || user.avatar} alt={`${user.name} `} />
                                             <AvatarFallback className="text-2xl">
-                                                {user.firstName[0]}
-                                                {user.lastName[0]}
+                                                {user.name
+                                                    ?.split(" ")
+                                                    .map((n) => n[0])
+                                                    .join("")
+                                                    .toUpperCase() ?? ""}
                                             </AvatarFallback>
                                         </Avatar>
                                         {isEditing && (
@@ -161,9 +158,7 @@ export default function ProfilePage() {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-xl font-semibold">
-                                            {user.firstName} {user.lastName}
-                                        </h3>
+                                        <h3 className="text-xl font-semibold">{user.name}</h3>
                                         <p className="text-muted-foreground capitalize">{user.role}</p>
                                     </div>
 
@@ -178,17 +173,20 @@ export default function ProfilePage() {
                                                 <span>{user.location}</span>
                                             </div>
                                         )}
-                                        <div className="flex items-center justify-center space-x-2">
-                                            <Calendar className="w-4 h-4" />
-                                            <span>Joined {new Date(user.createdAt).toLocaleDateString()}</span>
-                                        </div>
                                     </div>
 
                                     <div className="pt-4">
-                                        <div className="flex items-center justify-center space-x-2 text-sm text-green-600 dark:text-green-400">
-                                            <Shield className="w-4 h-4" />
-                                            <span>Verified Account</span>
-                                        </div>
+                                        {user.isVerified ? (
+                                            <div className="flex items-center justify-center space-x-2 text-sm text-green-600 dark:text-green-400">
+                                                <Shield className="w-4 h-4" />
+                                                <span>Verified Account</span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center justify-center space-x-2 text-sm text-yellow-600 dark:text-yellow-400">
+                                                <Shield className="w-4 h-4" />
+                                                <span>Unverified Account</span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </CardContent>
@@ -231,38 +229,20 @@ export default function ProfilePage() {
                             </CardHeader>
                             <CardContent>
                                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="firstName">First Name</Label>
-                                            <div className="relative">
-                                                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                                <Input
-                                                    id="firstName"
-                                                    {...register("firstName")}
-                                                    disabled={!isEditing}
-                                                    className={`pl-10 ${errors.firstName ? "border-destructive" : ""}`}
-                                                />
-                                            </div>
-                                            {errors.firstName && (
-                                                <p className="text-sm text-destructive">{errors.firstName.message}</p>
-                                            )}
+                                    <div className="space-y-2">
+                                        <Label htmlFor="name">Full Name</Label>
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                            <Input
+                                                id="name"
+                                                {...register("name")}
+                                                disabled={!isEditing}
+                                                className={`pl-10 ${errors.name ? "border-destructive" : ""}`}
+                                            />
                                         </div>
-
-                                        <div className="space-y-2">
-                                            <Label htmlFor="lastName">Last Name</Label>
-                                            <div className="relative">
-                                                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                                <Input
-                                                    id="lastName"
-                                                    {...register("lastName")}
-                                                    disabled={!isEditing}
-                                                    className={`pl-10 ${errors.lastName ? "border-destructive" : ""}`}
-                                                />
-                                            </div>
-                                            {errors.lastName && (
-                                                <p className="text-sm text-destructive">{errors.lastName.message}</p>
-                                            )}
-                                        </div>
+                                        {errors.name && (
+                                            <p className="text-sm text-destructive">{errors.name.message}</p>
+                                        )}
                                     </div>
 
                                     <div className="space-y-2">
