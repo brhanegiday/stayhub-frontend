@@ -235,7 +235,7 @@ export default function HostEarningsPage() {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    {earningsData.monthlyEarnings.map((data, index) => (
+                                    {earningsData.monthlyEarnings.map((data) => (
                                         <div key={data.month} className="flex items-center justify-between">
                                             <span className="text-sm font-medium">{data.month}</span>
                                             <div className="flex items-center space-x-4">

@@ -26,6 +26,7 @@ import {
     X,
     Zap,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -74,7 +75,6 @@ export default function AddPropertyPage() {
         handleSubmit,
         formState: { errors },
         setValue,
-        watch,
     } = useForm<PropertyFormData>({
         resolver: zodResolver(propertySchema),
         defaultValues: {
@@ -131,14 +131,10 @@ export default function AddPropertyPage() {
                 formData.append(`image_${index}`, image);
             });
 
-            // Here you would typically make an API call to create the property
-            console.log("Property data:", data);
-            console.log("Amenities:", selectedAmenities);
-            console.log("Images:", images);
-
             toast.success("Property created successfully!");
             router.push("/host/properties");
         } catch (error) {
+            console.error("Error creating property:", error);
             toast.error("Failed to create property");
         }
     };
@@ -441,10 +437,12 @@ export default function AddPropertyPage() {
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {imagePreviewUrls.map((url, index) => (
                                     <div key={index} className="relative group">
-                                        <img
+                                        <Image
                                             src={url}
                                             alt={`Preview ${index + 1}`}
                                             className="w-full h-32 object-cover rounded-lg"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         />
                                         <Button
                                             type="button"

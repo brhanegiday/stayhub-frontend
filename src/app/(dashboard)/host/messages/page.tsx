@@ -1,22 +1,22 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
-    MessageSquare,
-    Send,
-    Search,
-    Star,
-    Clock,
-    CheckCircle,
     AlertCircle,
-    Phone,
-    Mail,
     Calendar,
+    CheckCircle,
+    Clock,
+    Mail,
+    MessageSquare,
+    Phone,
+    Search,
+    Send,
+    Star,
 } from "lucide-react";
 import { useState } from "react";
 

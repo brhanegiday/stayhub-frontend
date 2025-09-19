@@ -29,8 +29,6 @@ interface BookingCalendarProps {
 
 export function BookingCalendar({
     bookedDates,
-    onDateSelect,
-    selectedDate,
     minDate,
     maxDate,
     showBookingDetails = false,

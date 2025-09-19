@@ -30,7 +30,7 @@ export default function HostBookingsPage() {
     const [updateBooking, { isLoading: isUpdating }] = useUpdateBookingMutation();
 
     const handleFilterChange = (key: keyof BookingFilters, value: any) => {
-        setFilters(prev => ({
+        setFilters((prev) => ({
             ...prev,
             [key]: value || undefined,
             page: key !== "page" ? 1 : value,
@@ -52,21 +52,16 @@ export default function HostBookingsPage() {
 
     const getStatusVariant = (status: string) => {
         switch (status) {
-            case "confirmed": return "default";
-            case "pending": return "secondary";
-            case "cancelled": return "destructive";
-            case "completed": return "outline";
-            default: return "secondary";
-        }
-    };
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case "confirmed": return "text-green-600 dark:text-green-400";
-            case "pending": return "text-yellow-600 dark:text-yellow-400";
-            case "cancelled": return "text-red-600 dark:text-red-400";
-            case "completed": return "text-blue-600 dark:text-blue-400";
-            default: return "text-gray-600 dark:text-gray-400";
+            case "confirmed":
+                return "default";
+            case "pending":
+                return "secondary";
+            case "cancelled":
+                return "destructive";
+            case "completed":
+                return "outline";
+            default:
+                return "secondary";
         }
     };
 
@@ -159,8 +154,7 @@ export default function HostBookingsPage() {
                             <p className="text-muted-foreground">
                                 {filters.search || filters.status
                                     ? "Try adjusting your filters"
-                                    : "Your booking requests will appear here"
-                                }
+                                    : "Your booking requests will appear here"}
                             </p>
                         </div>
                     ) : (
@@ -185,13 +179,17 @@ export default function HostBookingsPage() {
                                                 <TableCell>
                                                     <div>
                                                         <p className="font-medium">{booking.guestName}</p>
-                                                        <p className="text-sm text-muted-foreground">{booking.guestEmail}</p>
+                                                        <p className="text-sm text-muted-foreground">
+                                                            {booking.guestEmail}
+                                                        </p>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell>
                                                     <div>
                                                         <p className="font-medium">{booking.propertyTitle}</p>
-                                                        <p className="text-sm text-muted-foreground">{booking.propertyLocation}</p>
+                                                        <p className="text-sm text-muted-foreground">
+                                                            {booking.propertyLocation}
+                                                        </p>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell>
@@ -225,7 +223,9 @@ export default function HostBookingsPage() {
                                                             <>
                                                                 <Button
                                                                     size="sm"
-                                                                    onClick={() => handleStatusUpdate(booking.id, "confirmed")}
+                                                                    onClick={() =>
+                                                                        handleStatusUpdate(booking.id, "confirmed")
+                                                                    }
                                                                     disabled={isUpdating}
                                                                 >
                                                                     <CheckCircle className="w-4 h-4" />
@@ -233,7 +233,9 @@ export default function HostBookingsPage() {
                                                                 <Button
                                                                     size="sm"
                                                                     variant="destructive"
-                                                                    onClick={() => handleStatusUpdate(booking.id, "cancelled")}
+                                                                    onClick={() =>
+                                                                        handleStatusUpdate(booking.id, "cancelled")
+                                                                    }
                                                                     disabled={isUpdating}
                                                                 >
                                                                     <X className="w-4 h-4" />
@@ -259,7 +261,9 @@ export default function HostBookingsPage() {
                                             <div className="flex justify-between items-start mb-3">
                                                 <div>
                                                     <p className="font-medium">{booking.guestName}</p>
-                                                    <p className="text-sm text-muted-foreground">{booking.guestEmail}</p>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        {booking.guestEmail}
+                                                    </p>
                                                 </div>
                                                 <Badge variant={getStatusVariant(booking.status)}>
                                                     {booking.status}
